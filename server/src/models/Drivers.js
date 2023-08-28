@@ -1,11 +1,10 @@
 const { DataTypes } = require('sequelize');
-const { v4: uuidv4 } = require('uuid'); //  Para que mis ids sean distintos que los de la API
 
 module.exports = (sequelize) => {
   sequelize.define('Drivers', {
     id:{
       type: DataTypes.UUID,
-      defaultValue: () => uuidv4(),
+      defaultValue: DataTypes.UUIDV4,
       primaryKey: true
     },
   nombre: {
@@ -16,7 +15,7 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false
     },
-    descripción:{
+    descripcion:{
       type: DataTypes.TEXT,
       allowNull: false
     },
@@ -32,5 +31,5 @@ module.exports = (sequelize) => {
       type: DataTypes.DATEONLY,
       allowNull: false
     }
-  });
+  },{ timestamps: false });
 };
