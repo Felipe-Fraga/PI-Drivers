@@ -6,7 +6,7 @@ const { conn } = require('./src/db.js');
 const PORT = 3001;
 
 //Sincronizo DB
-conn.sync({ force: true }).then(() => {
+conn.sync({ alter: true }).then(() => {
 server.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
 })
