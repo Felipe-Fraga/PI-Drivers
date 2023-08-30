@@ -19,14 +19,36 @@ const cleanObj = (elem) => {
     }
 }
 
+const formatDriversWithTeams = (dbDrivers) => {
+    return dbDrivers.map(driver => {
+        const formattedTeams = driver.Teams.map(team => {
+            return team.nombre;
+        }).join(',');
+
+        return {
+            id: driver.id,
+            nombre: driver.nombre,
+            apellido: driver.apellido,
+            descripcion: driver.descripcion,
+            imagen: driver.imagen,
+            nacionalidad: driver.nacionalidad,
+            nacimiento: driver.nacimiento,
+            Teams: formattedTeams
+        };
+    });
+};
+
+
+
 const getAllDrivers = async () => {
-    const dbDrivers = await Drivers.findAll({include: Teams});
+    const dbDrivers = formatDriversWithTeams(await Drivers.findAll({include: Teams}));
     const apiDrivers = cleanArray((await axios.get(URL)).data);
+
     return [...dbDrivers, ...apiDrivers]
 }
 
 const getDriversByName = async (name) => {
-    const dbDrivers = await Drivers.findAll({where: { nombre: { [Op.iLike]: `%${name}%` }}});
+    const dbDrivers = await Drivers.findAll({where: name ? { nombre: { [Op.iLike]: `%${name}%` }} : {}, include: [{model:Teams, as:'Teams'}]});
     const apiDrivers = cleanArray((await axios.get(URL)).data);
     const filteredDrivers = apiDrivers.filter((user) => user.nombre.toLowerCase().includes(name.toLowerCase()));
     return [...dbDrivers, ...filteredDrivers].slice(0,15)
@@ -34,7 +56,7 @@ const getDriversByName = async (name) => {
 
 const getDriverById = async (id, source) => {
     const driver = source === 'API' ? cleanObj((await axios.get(`${URL}/${id}`)).data) 
-    : await Drivers.findByPk(id, {include: Teams});
+    : formatDriversWithTeams([await Drivers.findByPk(id, {include: Teams})]);
     return driver;
 }; 
 

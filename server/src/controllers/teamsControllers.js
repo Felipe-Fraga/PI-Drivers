@@ -18,8 +18,15 @@ const getAllTeamsFromAPI = async () => {
 
 //GUARDAR EQUIPOS EN DB
 const saveTeamsToDatabase = async (teams) => {
-    await Teams.bulkCreate(teams.map(team => ({ nombre })));
+    for (const teamName of teams) {
+        const existingTeam = await Teams.findOne({ where: { nombre: teamName } });
+        if (!existingTeam) {
+            await Teams.create({ nombre: teamName });
+        }
+    }
 };
+
+
 //TRAER EQUIPOS DE DB
 const getAllTeamsFromDatabase = async () => {
     const teams = await Teams.findAll();
