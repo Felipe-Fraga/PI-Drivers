@@ -1,18 +1,18 @@
 const { Router } = require("express");
 const driversRouter = Router();
-const { getAllDriversHandler, getDriverByIdHandler, createDriverHandler } = require('../handlers/driversHandlers')
+const { getDriversHandler, getDriverByIdHandler, createDriverHandler } = require('../handlers/driversHandlers')
 
 const validate = (req, res, next) => {
-    const { nombre, apellido, descripcion, imagen, nacionalidad, nacimiento, teams } = req.body;
-    if ( !nombre || !apellido || !descripcion  || !nacionalidad ||!nacimiento ||!teams ) res.status(400).json({error: 'Por favor complete todos los campos'})
-    next();
-}
+    const { name, surname, description, nationality, dob, teams } = req.body;
+    if (!name || !surname || !description || !nationality || !dob || !teams || teams === '') {
+        res.status(400).json({ error: 'Por favor complete todos los campos' });
+    } else {
+        next();
+    }
+};
 
-
-driversRouter.get('/', getAllDriversHandler);   //TERMINADO
-
-driversRouter.get('/:id', getDriverByIdHandler);    //FALTA RELACIONz
-
-driversRouter.post('/', validate, createDriverHandler);    //FALTA RELACION
+driversRouter.get('/', getDriversHandler);   
+driversRouter.get('/:id', getDriverByIdHandler);    
+driversRouter.post('/', validate, createDriverHandler);    
 
 module.exports = driversRouter;

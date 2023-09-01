@@ -5,31 +5,24 @@ const URL = 'http://localhost:5000/drivers';
 const getAllTeamsFromAPI = async () => {
     const drivers = (await axios.get(URL)).data;
     const teamsSet = new Set();
-
     drivers.forEach(driver => {
-        if (driver.teams) {
-            const driverTeams = driver.teams.split(',');
-            driverTeams.forEach(team => teamsSet.add(team));
-        }
+        if (driver.teams) driver.teams.split(',').forEach(team => teamsSet.add(team.trim()));
     });
-
-    return Array.from(teamsSet).map(team => team.trim());
+    return Array.from(teamsSet);
 };
 
-//GUARDAR EQUIPOS EN DB
 const saveTeamsToDatabase = async (teams) => {
-    for (const teamName of teams) {
-        const existingTeam = await Teams.findOne({ where: { nombre: teamName } });
-        if (!existingTeam) {
-            await Teams.create({ nombre: teamName });
-        }
-    }
+    await Promise.all(teams.map(async (teamName) => {       //se cargan en db y sigue
+        await Teams.findOrCreate({
+            where: { nombre: teamName },        //busca si ya existe
+            defaults: { nombre: teamName }      //lo crea
+        });
+    }));
 };
 
-
-//TRAER EQUIPOS DE DB
 const getAllTeamsFromDatabase = async () => {
     const teams = await Teams.findAll();
-    return teams.map(team =>  team.nombre);};
+    return teams.map(team => team.nombre);
+};
 
 module.exports = { getAllTeamsFromAPI, saveTeamsToDatabase, getAllTeamsFromDatabase };

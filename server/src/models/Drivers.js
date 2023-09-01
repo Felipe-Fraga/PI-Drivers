@@ -7,27 +7,27 @@ module.exports = (sequelize) => {
       defaultValue: DataTypes.UUIDV4,
       primaryKey: true
     },
-  nombre: {
+    name: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    apellido:{
+    surname:{
       type: DataTypes.STRING,
       allowNull: false
     },
-    descripcion:{
+    description:{
       type: DataTypes.TEXT,
       allowNull: false
     },
-    imagen:{
+    image:{
       type: DataTypes.STRING,
       defaultValue: 'https://flourishportal.blogspot.com/2021/08/formula-1-wikipedia.html'
     },
-    nacionalidad:{
+    nationality:{
       type: DataTypes.STRING,
       allowNull: false
     },
-    nacimiento:{
+    dob:{
       type: DataTypes.DATEONLY,
       allowNull: false
     }
