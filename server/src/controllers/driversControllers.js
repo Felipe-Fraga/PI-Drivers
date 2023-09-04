@@ -1,6 +1,6 @@
 const { Drivers, Teams } = require('../db');
 const axios = require('axios');
-const URL = 'http://localhost:5000/drivers'
+const URL = 'http://localhost:5000/drivers';
 //const { Op } = require('sequelize');
 
 const formatAPI = (api) => 
@@ -9,7 +9,7 @@ const formatAPI = (api) =>
         name: name.forename,
         surname: name.surname,
         description,
-        image: image.url || 'https://flourishportal.blogspot.com/2021/08/formula-1-wikipedia.html',
+        image: image.url || 'https://i.pinimg.com/originals/37/68/44/3768447b2024222d9e90c203e96c9328.jpg',
         nationality,
         dob,
         teams
@@ -67,12 +67,10 @@ const getDriverById = async (id, source) => {
 const createDriver = async (name, surname, description, image, nationality, dob, teams) => {
     const newDriver = await Drivers.create({name, surname, description, image, nationality, dob});
     let teamsAsociados = [];
-
     if (teams) {
         teamsAsociados = await Teams.findAll({ where: { nombre: teams } });
         await newDriver.setTeams(teamsAsociados);
     }
-
     return {
         ...newDriver.dataValues,
         Teams: teamsAsociados.map(team => team.nombre)
