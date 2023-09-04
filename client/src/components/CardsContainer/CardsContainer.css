@@ -1,8 +1,9 @@
 .cardsContainer{
     border: 1px solid black;
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 columnas con el mismo tamaño */
+    grid-gap: 20px;
     flex-direction: row;
     border-radius: 15px;
     flex-wrap: wrap;
-    gap: 1em;
 }

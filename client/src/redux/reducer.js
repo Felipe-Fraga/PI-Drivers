@@ -6,17 +6,19 @@ import {
 
 const initialState = {
     drivers: [],
+    allDrivers: []
 };
 
 const rootReduccer = (state = initialState, action) => {
     switch (action.type) {
         case GET_USERS:
-            return { ...state, drivers: action.payload, drivers: action.payload };
+            return { ...state, drivers: action.payload, allDrivers: action.payload  };
 
         case SEARCH_USER_BY_NAME:
-            const filteredUsers = state.drivers.filter((driver) =>
+            const filteredDrivers = state.allDrivers.filter((driver) =>
                 driver.name.toLowerCase().includes(action.payload.toLowerCase()));
-            return { ...state, drivers: filteredUsers };
+            return { ...state, drivers: filteredDrivers };
+
 
         case SORT_USERS:
             const { orderBy, orderDirection} = action.payload;
