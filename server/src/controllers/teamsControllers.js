@@ -22,7 +22,7 @@ const saveTeamsToDatabase = async (teams) => {
 
 const getAllTeamsFromDatabase = async () => {
     const teams = await Teams.findAll();
-    return teams.map(team => team.nombre);
+    return teams.map(team => team);
 };
 
 module.exports = { getAllTeamsFromAPI, saveTeamsToDatabase, getAllTeamsFromDatabase };

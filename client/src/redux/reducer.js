@@ -1,12 +1,15 @@
 import {
     GET_USERS,
     SEARCH_USER_BY_NAME,
-    SORT_USERS
+    SORT_USERS,
+    GET_TEAMS,
+    CREATE_DRIVER
 } from "./actions";
 
 const initialState = {
     drivers: [],
-    allDrivers: []
+    allDrivers: [],
+    teams: []
 };
 
 const rootReduccer = (state = initialState, action) => {
@@ -36,10 +39,15 @@ const rootReduccer = (state = initialState, action) => {
                 return 0;
             });
             return {...state, drivers: sortedDrivers};
-
-        default:
-            return {...state}
-    }
-};
+            
+            case GET_TEAMS:
+                return {...state, teams: action.payload}
+                
+        case CREATE_DRIVER:
+            return { ...state, drivers: [...state.drivers, action.payload] };
+            default:
+                return {...state}
+            }
+        };
 
 export default rootReduccer

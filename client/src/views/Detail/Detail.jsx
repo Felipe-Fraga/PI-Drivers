@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom'
-
+import { Link } from 'react-router-dom';
 
 const Detail = () =>{
     
@@ -18,6 +18,7 @@ const Detail = () =>{
 
     return(
         <div>
+            <Link to={`/Home`}> <button>Drivers</button> </Link>
             <h1>{driver.name && driver.name}</h1>
         </div>
     )

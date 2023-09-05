@@ -1,6 +1,6 @@
 import CardsContainer from "../../components/CardsContainer/CardsContainer";
 import NavBar from '../../components/NavBar/NavBar'
-import { getUsers } from "../../redux/actions";
+import { getTeams, getUsers } from "../../redux/actions";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 
