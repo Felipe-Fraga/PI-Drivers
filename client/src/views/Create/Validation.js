@@ -19,12 +19,6 @@ export function validateNationality(nationality) {
     return null;
 }
 
-export function validateImage(image) {
-    if (!image) {
-        return 'Selecciona una imagen para el conductor.';
-    }
-    return null;
-}
 
 export function validateDob(dob) {
     if (dob.trim() === '') {

@@ -3,7 +3,6 @@ import {
     validateName,
     validateSurname,
     validateNationality,
-    validateImage,
     validateDob,
     validateDescription,
     validateTeams,
@@ -12,11 +11,14 @@ import {
 export function handleSubmit(event, driverData, setErrors, dispatch, setDriverData) {
     event.preventDefault();
 
+    if (!driverData.image) {
+        driverData.image = ''; 
+    }
+
     const errors = {
         name: validateName(driverData.name),
         surname: validateSurname(driverData.surname),
         nationality: validateNationality(driverData.nationality),
-        image: validateImage(driverData.image),
         dob: validateDob(driverData.dob),
         description: validateDescription(driverData.description),
         teams: validateTeams(driverData.teams),
@@ -40,7 +42,7 @@ export function handleSubmit(event, driverData, setErrors, dispatch, setDriverDa
     }
 }
 
-export function handleFieldChange(event, driverData, setDriverData) {
+export function handleInputChange(event, driverData, setDriverData) {
     const { name, value } = event.target;
     setDriverData({ ...driverData, [name]: value });
 }
@@ -54,3 +56,5 @@ export function handleTeamsChange(event, driverData, setDriverData) {
     const selectedOptions = Array.from(event.target.selectedOptions, (option) => option.value);
     setDriverData({ ...driverData, teams: selectedOptions });
 }
+
+

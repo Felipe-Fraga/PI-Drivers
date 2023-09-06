@@ -9,7 +9,7 @@ const formatAPI = (api) =>
         name: name.forename,
         surname: name.surname,
         description,
-        image: image.url || 'https://i.pinimg.com/originals/37/68/44/3768447b2024222d9e90c203e96c9328.jpg',
+        image: image.url,
         nationality,
         dob,
         teams
@@ -19,7 +19,7 @@ const formatAPI = (api) =>
 const formatDB = (bd) => 
     bd.map(driver => ({
         ...driver.dataValues,                                             //prop de Seq - trae los valores
-        Teams: driver.Teams.map(team => team.nombre).join(', ')
+        teams: driver.Teams.map(team => team.nombre).join(', ')
 }));
 
 
@@ -73,7 +73,7 @@ const createDriver = async (name, surname, description, image, nationality, dob,
     }
     return {
         ...newDriver.dataValues,
-        Teams: teamsAsociados.map(team => team.nombre)
+        teams: teamsAsociados.map(team => team.nombre)
     }
 };
 

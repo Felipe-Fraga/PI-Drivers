@@ -20,8 +20,7 @@ module.exports = (sequelize) => {
       allowNull: false
     },
     image:{
-      type: DataTypes.STRING,
-      defaultValue: 'https://flourishportal.blogspot.com/2021/08/formula-1-wikipedia.html'
+      type: DataTypes.STRING
     },
     nationality:{
       type: DataTypes.STRING,
