@@ -13,6 +13,8 @@ const CardsContainer = () => {
         if (characterSource === "api") return !isNaN(driver.id);
         });
 
+    
+
     return (
         <div className='cardsContainer'>
             {filteredDrivers.map(({ id, name, surname, image, dob, teams, Teams }) => {

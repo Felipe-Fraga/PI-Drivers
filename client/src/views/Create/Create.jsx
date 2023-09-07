@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getTeams } from '../../redux/actions';
 import { handleSubmit, handleInputChange } from './Utils';
+import {Link} from 'react-router-dom'
 
 const Create = () => {
     const dispatch = useDispatch();
@@ -41,6 +42,7 @@ const Create = () => {
 
     return (
         <div>
+            <Link to={'/Home'}> <button>Home</button> </Link>
             <h1>Crear Conductor</h1>
             <form  encType="multipart/form-data" onSubmit={(event) => handleSubmit(event, driverData, setErrors, dispatch, setDriverData)}>
                 <label>Nombre:</label>

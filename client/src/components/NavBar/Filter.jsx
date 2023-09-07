@@ -12,9 +12,7 @@ const FilterByTeam = () => {
         dispatch(getTeams());
     }, [dispatch]);
 
-    const drivers = useSelector((state) => state.drivers); 
     const teams = useSelector((state) => state.teams); 
-    const filteredDrivers = useSelector((state) => state.filteredDrivers); 
 
     const handleTeamChange = (event) => {
         const selectedTeam = event.target.value;

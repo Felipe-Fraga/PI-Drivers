@@ -11,8 +11,8 @@ import {
 const initialState = {
     drivers: [],
     allDrivers: [],
+    drivesWTeam: [],
     teams: [],
-    filteredDrivers: [],
     characterSource: ""
 };
 
@@ -20,7 +20,7 @@ const rootReduccer = (state = initialState, action) => {
     switch (action.type) {
         case GET_USERS:
             return {
-                ...state, drivers: action.payload, allDrivers: action.payload
+                ...state, drivers: action.payload, allDrivers: action.payload, drivesWTeam: action.payload
             };
 
         case SEARCH_USER_BY_NAME:
@@ -63,16 +63,14 @@ const rootReduccer = (state = initialState, action) => {
 
         case FILTER_BY_TEAM:
             const selectedTeam = action.payload;
-                const filtDrivers = state.drivers.filter((driver) => {
+            const filtDrivers = state.drivesWTeam.filter((driver) => {
                     if (driver.teams) {
-                        const equipos = driver.teams.split(',');
+                        const equipos = driver.teams;
                         return equipos.includes(selectedTeam);
-                    }
-                    return false;
-                });
+                    }});
                     return {
                     ...state,
-                    filteredDrivers: filtDrivers,
+                    drivers: filtDrivers,
                     };
 
     case SET_CHARACTER_SOURCE:

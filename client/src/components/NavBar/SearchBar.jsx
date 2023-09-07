@@ -15,18 +15,18 @@ const SearchBar = () => {
 
     const handleSearch = () => {
       dispatch(searchUserByName(nombre)); 
-      setNombre('')
     };
-
-    const mostrarTodos = () => {
+    
+    /* const mostrarTodos = () => {
       dispatch(getUsers());
-    };
+      setNombre('')
+    }; */
 
     return(
         <div className="SearchBar">
             <input type="text" onChange={handleChange} value={nombre} placeholder="Buscar conductor"/>
             <button type="button" onClick={handleSearch}>Buscar</button>
-            <button onClick={mostrarTodos}>Mostrar Todos</button>
+            {/* <button onClick={mostrarTodos}>Mostrar Todos</button> */}
             <Link to ={'/Create'}><button>Create</button> </Link>
         </div>
     )
