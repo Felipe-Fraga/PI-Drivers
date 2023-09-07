@@ -1,10 +1,10 @@
 import './Landing.css'
+import { Link } from 'react-router-dom'
 
-const Landing = () =>{
-    const handleClick = () => window.location.href = '../Home' 
+const Landing = () => {
     return(
         <div className="Landing">
-                <button className='landingButton' onClick={handleClick}>Comenzar Carrera</button>
+                <Link to={'/Home'}><button className='landingButton'>Comenzar</button></Link>
         </div> 
     )
 }

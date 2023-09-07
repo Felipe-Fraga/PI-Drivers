@@ -1,85 +1,49 @@
-import {
-    GET_USERS,
-    SEARCH_USER_BY_NAME,
-    SORT_USERS,
-    GET_TEAMS,
-    CREATE_DRIVER,
-    FILTER_BY_TEAM,
-    SET_CHARACTER_SOURCE
-} from "./actions";
+import { GET_DRIVERS, SEARCH_DRIVER_BY_NAME, SORT_DRIVERS, GET_TEAMS, CREATE_DRIVER, FILTER_BY_TEAM, FILTER_ORIGIN } from "./actions";
 
 const initialState = {
     drivers: [],
-    allDrivers: [],
-    drivesWTeam: [],
+    driversName: [],
+    driversTeam: [],
     teams: [],
-    characterSource: ""
+    originDriver: ""
 };
 
 const rootReduccer = (state = initialState, action) => {
     switch (action.type) {
-        case GET_USERS:
-            return {
-                ...state, drivers: action.payload, allDrivers: action.payload, drivesWTeam: action.payload
-            };
+        case GET_DRIVERS:
+            return {...state, drivers: action.payload, driversName: action.payload, driversTeam: action.payload};
 
-        case SEARCH_USER_BY_NAME:
-            const filteredDrivers = state.allDrivers.filter((driver) =>
-                driver.name.toLowerCase().includes(action.payload.toLowerCase()));
-            return {
-                ...state, drivers: filteredDrivers
-            };
+        case SEARCH_DRIVER_BY_NAME:
+            const filteredNames = state.driversName.filter((driver) => 
+                `${driver.name} ${driver.surname}`.toLowerCase().includes(action.payload.toLowerCase()));
+            return {...state, drivers: filteredNames};
 
-        case SORT_USERS:
-            const {
-                order, direction
-            } = action.payload;
+        case SORT_DRIVERS:
+            const { order, direction } = action.payload;
             const ordenados = [...state.drivers];
-            ordenados.sort((a, b) => {
-                if (order === 'name') {
-                    const nameA = `${a.name} ${a.surname}`;
-                    const nameB = `${b.name} ${b.surname}`;
-                    return direction === 'asc' ? nameA.localeCompare(nameB) : nameB.localeCompare(nameA);
-                } else if (order === 'birthdate') {
-                    const dateA = new Date(a.dob)
-                    const dateB = new Date(b.dob)
-                    return direction === 'asc' ? dateB - dateA : dateA - dateB;
-                }
-                return 0;
-            });
-            return {
-                ...state, drivers: ordenados
-            };
+                ordenados.sort((a, b) => {
+                    return order === 'name'
+                        ? (direction === 'asc' ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name))
+                        : (direction === 'asc' ? new Date(b.dob) - new Date(a.dob) : new Date(a.dob) - new Date(b.dob));
+                });
+            return {...state, drivers: ordenados};
 
         case GET_TEAMS:
-            return {
-                ...state, teams: action.payload
-            }
+            return {...state, teams: action.payload};
 
         case CREATE_DRIVER:
-                return {
-                    ...state, drivers: [...state.drivers, action.payload]
-                };
+                return {...state, drivers: [...state.drivers, action.payload]};
 
         case FILTER_BY_TEAM:
-            const selectedTeam = action.payload;
-            const filtDrivers = state.drivesWTeam.filter((driver) => {
-                    if (driver.teams) {
-                        const equipos = driver.teams;
-                        return equipos.includes(selectedTeam);
-                    }});
-                    return {
-                    ...state,
-                    drivers: filtDrivers,
-                    };
+            const filteredTeam = state.driversTeam.filter((driver) => 
+                driver && driver.teams && driver.teams.includes(action.payload));
+            return {...state, drivers: filteredTeam};
 
-    case SET_CHARACTER_SOURCE:
-        return {...state, characterSource: action.payload };
+        case FILTER_ORIGIN:
+            return {...state, originDriver: action.payload};
 
         default:
-                return {
-                    ...state
-                }
+            return {...state};
     }
 };
 

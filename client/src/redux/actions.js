@@ -1,27 +1,27 @@
 const URL = "http://localhost:3001"
 import axios from "axios"
-export const GET_USERS = 'GET_USERS'
-export const SEARCH_USER_BY_NAME = 'SEARCH_USER_BY_NAME'
-export const SORT_USERS = 'SORT_USERS';
+export const GET_DRIVERS = 'GET_DRIVERS'
+export const SEARCH_DRIVER_BY_NAME = 'SEARCH_DRIVER_BY_NAME'
+export const SORT_DRIVERS = 'SORT_DRIVERS';
 export const GET_TEAMS = 'GET_TEAMS'
 export const CREATE_DRIVER = 'CREATE_DRIVER';
 export const FILTER_BY_TEAM = "FILTER_BY_TEAM";
-export const SET_CHARACTER_SOURCE = "SET_CHARACTER_SOURCE";
+export const FILTER_ORIGIN = "FILTER_ORIGIN";
 
 
-export const getUsers = () => {
+export const getDrivers = () => {
     return async function (dispatch) {
         const drivers = (await axios.get(`${URL}/drivers`)).data
-        dispatch({type: GET_USERS, payload: drivers})
+        dispatch({type: GET_DRIVERS, payload: drivers}) //dispatch para comunicar resultados asíncronos al store de Redux para actualizarlo
     }
 };
 
-export const searchUserByName = (name) => {
-    return { type: SEARCH_USER_BY_NAME, payload: name };
+export const searchDriverByName = (name) => {
+    return {type: SEARCH_DRIVER_BY_NAME, payload: name};
 };
 
-export const sortUsers = (order, direction) => {
-    return { type: SORT_USERS, payload: { order, direction } };
+export const sortDrivers = (order, direction) => {
+    return {type: SORT_DRIVERS, payload: { order, direction }};
 };
 
 export const getTeams = () => {
@@ -39,9 +39,9 @@ export const createDriver = (driverData) => {
 }
 
 export const filterByTeam = (team) => {
-    return { type: FILTER_BY_TEAM, payload: team };
+    return {type: FILTER_BY_TEAM, payload: team};
 };
 
-export const setCharacterSource = (source) => {
-    return { type: SET_CHARACTER_SOURCE, payload: source };
+export const filterByOrigin = (source) => {
+    return {type: FILTER_ORIGIN, payload: source};
 };

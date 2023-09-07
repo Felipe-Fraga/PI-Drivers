@@ -1,20 +1,19 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { setCharacterSource } from "../../redux/actions";
+import { filterByOrigin } from "../../redux/actions";
 
 const Origin = () => {
     const dispatch = useDispatch();
-    const [selectedSource, setSelectedSource] = useState("");
+    const [origin, setOrigin] = useState("");
 
-    const handleSourceChange = (event) => {
-        const source = event.target.value;
-        setSelectedSource(source);
-        dispatch(setCharacterSource(source)); 
+    const handleSourceChange = (e) => {
+        setOrigin(e.target.value);
+        dispatch(filterByOrigin(e.target.value)); 
     };
 
     return (
         <div>
-            <select id="sourceSelect" value={selectedSource} onChange={handleSourceChange}>
+            <select onChange={handleSourceChange}>
                 <option value="">Todos</option>
                 <option value="database">Base de Datos</option>
                 <option value="api">API</option>

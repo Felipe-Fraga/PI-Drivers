@@ -1,19 +1,23 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { sortUsers } from "../../redux/actions";
+import { sortDrivers } from "../../redux/actions";
 
 const Order = () => {
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    setOrder("");
+    setDirection("");
+  }, []);
+
   const [order, setOrder] = useState("");
   const [direction, setDirection] = useState("");
 
-  const handleSortChange = (event) => {
-    const { value } = event.target;
-    const [newOrder, newDirection] = value.split(":");
+  const handleSortChange = (e) => {
+    const [newOrder, newDirection] = e.target.value.split(":");
     setOrder(newOrder);
     setDirection(newDirection);
-    dispatch(sortUsers(newOrder, newDirection));
+    dispatch(sortDrivers(newOrder, newDirection));
   };
 
   return (

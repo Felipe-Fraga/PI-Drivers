@@ -1,19 +1,16 @@
-import React, { useState } from 'react';
 import Card from '../Card/Card';
 import { useSelector } from 'react-redux';
 import './CardsContainer.css'
 
 const CardsContainer = () => {
     const drivers = useSelector(state => state.drivers);
-    const characterSource = useSelector((state) => state.characterSource);
+    const originDriver = useSelector((state) => state.originDriver);
 
     const filteredDrivers = drivers.filter((driver) => {
-        if (characterSource === "") return true;
-        if (characterSource === "database") return  isNaN(driver.id);
-        if (characterSource === "api") return !isNaN(driver.id);
+        if (originDriver === "") return true;
+        if (originDriver === "database") return  isNaN(driver.id);
+        if (originDriver === "api") return !isNaN(driver.id);
         });
-
-    
 
     return (
         <div className='cardsContainer'>

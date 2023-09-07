@@ -1,15 +1,15 @@
 import SearchBar from "./SearchBar";
 import Order from './Order'
-import FilterByTeam from "./Filter";
 import Origin from "./Origin";
+import FilterByTeam from "./FilterByTeam";
 
 const NavBar = () => {
     return (
-        <div className="navBar">
+        <div>
             <SearchBar />
             <Order />
-            <FilterByTeam />
             <Origin />
+            <FilterByTeam />
         </div>
     );
 };
