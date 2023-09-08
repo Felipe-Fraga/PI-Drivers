@@ -1,19 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getTeams } from '../../redux/actions';
-import { handleSubmit, handleInputChange } from './Utils';
+import { handleSubmit } from './Utils';
 import {Link} from 'react-router-dom'
 
 const Create = () => {
     const dispatch = useDispatch();
-    const opcionesEscuderias = useSelector((state) => state.teams);
+    const teams = useSelector((state) => state.teams);
 
-    useEffect(() => {
-        if (opcionesEscuderias.length === 0) {
-            dispatch(getTeams());
-        }
-    }, [opcionesEscuderias, dispatch]);
-
+    const [selectTeams, setSelectedTeams] = useState([])
     const [driverData, setDriverData] = useState({
         name: '',
         surname: '',
@@ -21,7 +15,7 @@ const Create = () => {
         image: null,
         dob: '',
         description: '',
-        teams: [],
+        teams: []
     });
 
     const [errors, setErrors] = useState({
@@ -30,47 +24,52 @@ const Create = () => {
         nationality: '',
         image: '',
         dob: '',
-        description: '',
-        teams: '',
+        description: ''
     });
 
-    const handleSelectChange = (event) => {
-        const selectedOptions = Array.from(event.target.selectedOptions, (option) => option.value);
-        handleInputChange(event, driverData, setDriverData);
-        setDriverData({ ...driverData, teams: selectedOptions });
-    };
+    const handleSelectChange = (e) => {
+        setSelectedTeams((x) =>  [...x, e.target.value]);
+        setDriverData((x) => ({...x, teams: [...x.teams, e.target.value]}))
+    }
+
+    const handleChange = (event)=> {
+        setDriverData({ ...driverData, [event.target.name]: event.target.value });
+    }
+
 
     return (
         <div>
             <Link to={'/Home'}> <button>Home</button> </Link>
             <h1>Crear Conductor</h1>
-            <form  encType="multipart/form-data" onSubmit={(event) => handleSubmit(event, driverData, setErrors, dispatch, setDriverData)}>
+            <form onSubmit={(event) => handleSubmit(event, driverData, setErrors, dispatch, setDriverData)}>
                 <label>Nombre:</label>
-                <input type="text" id="name" name="name" value={driverData.name} onChange={(event) => handleInputChange(event, driverData, setDriverData)} />
+                <input name="name" value={driverData.name} onChange={handleChange} />
                 {errors.name && <div className="error">{errors.name}</div>}
 
                 <label>Apellido:</label>
-                <input type="text" id="surname" name="surname" value={driverData.surname} onChange={(event) => handleInputChange(event, driverData, setDriverData)} />
+                <input  name="surname" value={driverData.surname} onChange={handleChange} />
                 {errors.surname && <div className="error">{errors.surname}</div>}
 
                 <label>Nacionalidad:</label>
-                <input type="text" id="nationality" name="nationality" value={driverData.nationality} onChange={(event) => handleInputChange(event, driverData, setDriverData)} />
+                <input name="nationality" value={driverData.nationality} onChange={handleChange} />
                 {errors.nationality && <div className="error">{errors.nationality}</div>}
 
                 <label>Imagen:</label>
-                <input type="file" id="image" name="image" accept="image/*" onChange={(event) => handleInputChange(event, driverData, setDriverData)} />
+                <input name="image" type="url"  onChange={handleChange} />
 
                 <label>Fecha de Nacimiento:</label>
-                <input type="date" id="dob" name="dob" value={driverData.dob} onChange={(event) => handleInputChange(event, driverData, setDriverData)} />
+                <input name="dob" type="date" value={driverData.dob} onChange={handleChange} />
+                {errors.dob && <div className="error">{errors.dob}</div>}
 
                 <label>Descripción:</label>
-                <textarea id="description" name="description" value={driverData.description} onChange={(event) => handleInputChange(event, driverData, setDriverData)}></textarea>
+                <textarea name="description" value={driverData.description} onChange={handleChange}></textarea>
+                {errors.description && <div className="error">{errors.description}</div>}
 
-                <label>Escuderías:</label>
-                <select id="teams" multiple={true} value={driverData.teams} onChange={handleSelectChange}>
-                    {opcionesEscuderias.map((escuderia) => (
-                        <option key={escuderia.id} value={escuderia.nombre}>
-                            {escuderia.nombre}
+                <label>Equipos::</label>
+                <select  multiple={true} value={driverData.teams} onChange={handleSelectChange}>
+                    {teams.map((team) => (
+                        <option key={team.id} value={team.nombre}>
+                            {team.nombre}
                         </option>
                     ))}
                 </select>

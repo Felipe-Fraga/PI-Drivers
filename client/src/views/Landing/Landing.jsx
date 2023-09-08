@@ -1,7 +1,7 @@
 import './Landing.css'
 import { Link } from 'react-router-dom'
 
-const Landing = () => {
+const Landing = () => {zz
     return(
         <div className="Landing">
                 <Link to={'/Home'}><button className='landingButton'>Comenzar</button></Link>

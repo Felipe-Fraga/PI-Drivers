@@ -1,27 +1,17 @@
 import { createDriver } from '../../redux/actions';
-import {
-    validateName,
-    validateSurname,
-    validateNationality,
-    validateDob,
-    validateDescription,
-    validateTeams,
-} from './Validation';
 
 export function handleSubmit(event, driverData, setErrors, dispatch, setDriverData) {
     event.preventDefault();
 
-    if (!driverData.image) {
-        driverData.image = ''; 
-    }
+    !driverData.image ? driverData.image = '' : undefined;
 
     const errors = {
-        name: validateName(driverData.name),
-        surname: validateSurname(driverData.surname),
-        nationality: validateNationality(driverData.nationality),
-        dob: validateDob(driverData.dob),
-        description: validateDescription(driverData.description),
-        teams: validateTeams(driverData.teams),
+        name: driverData.name === '' ? 'El nombre del conductor es obligatorio.' : undefined,
+        surname: driverData.surname === '' ? 'El apellido del conductor es obligatorio.' : undefined,
+        nationality: driverData.nationality === '' ? 'La nacionalidad del conductor es obligatoria.' : undefined,
+        dob: driverData.dob === '' ? 'La fecha de nacimiento del conductor es obligatoria.' : undefined,
+        description: driverData.description === '' ? 'La descripción del conductor es obligatoria.' : undefined,
+        teams: driverData.teams.length === 0 ? 'Selecciona al menos una escudería.' : undefined,
     };
 
     setErrors(errors);
@@ -37,24 +27,7 @@ export function handleSubmit(event, driverData, setErrors, dispatch, setDriverDa
             image: null,
             dob: '',
             description: '',
-            teams: [],
+            teams: driverData.teams,
         });
     }
 }
-
-export function handleInputChange(event, driverData, setDriverData) {
-    const { name, value } = event.target;
-    setDriverData({ ...driverData, [name]: value });
-}
-
-export function handleImageChange(event, driverData, setDriverData) {
-    const imageFile = event.target.files[0];
-    setDriverData({ ...driverData, image: imageFile });
-}
-
-export function handleTeamsChange(event, driverData, setDriverData) {
-    const selectedOptions = Array.from(event.target.selectedOptions, (option) => option.value);
-    setDriverData({ ...driverData, teams: selectedOptions });
-}
-
-

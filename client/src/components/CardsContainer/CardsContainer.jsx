@@ -4,17 +4,10 @@ import './CardsContainer.css'
 
 const CardsContainer = () => {
     const drivers = useSelector(state => state.drivers);
-    const originDriver = useSelector((state) => state.originDriver);
-
-    const filteredDrivers = drivers.filter((driver) => {
-        if (originDriver === "") return true;
-        if (originDriver === "database") return  isNaN(driver.id);
-        if (originDriver === "api") return !isNaN(driver.id);
-        });
 
     return (
         <div className='cardsContainer'>
-            {filteredDrivers.map(({ id, name, surname, image, dob, teams, Teams }) => {
+            {drivers.map(({ id, name, surname, image, dob, teams, Teams }) => {
                 return (
                     <Card
                         key={id}

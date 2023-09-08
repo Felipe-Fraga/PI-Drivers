@@ -7,7 +7,7 @@ export const GET_TEAMS = 'GET_TEAMS'
 export const CREATE_DRIVER = 'CREATE_DRIVER';
 export const FILTER_BY_TEAM = "FILTER_BY_TEAM";
 export const FILTER_ORIGIN = "FILTER_ORIGIN";
-
+export const DETAIL_CARD = 'DETAIL_CARD'
 
 export const getDrivers = () => {
     return async function (dispatch) {
@@ -45,3 +45,10 @@ export const filterByTeam = (team) => {
 export const filterByOrigin = (source) => {
     return {type: FILTER_ORIGIN, payload: source};
 };
+
+export const viewDetail = (id) => {
+    return async function (dispatch) {
+        const driver = (await axios.get(`${URL}/drivers/${id}`)).data
+        dispatch({type: GET_DRIVERS, payload: driver})
+    }
+}

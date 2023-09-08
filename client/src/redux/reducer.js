@@ -1,17 +1,17 @@
-import { GET_DRIVERS, SEARCH_DRIVER_BY_NAME, SORT_DRIVERS, GET_TEAMS, CREATE_DRIVER, FILTER_BY_TEAM, FILTER_ORIGIN } from "./actions";
+import { GET_DRIVERS, SEARCH_DRIVER_BY_NAME, SORT_DRIVERS, GET_TEAMS, CREATE_DRIVER, FILTER_BY_TEAM, FILTER_ORIGIN, DETAIL_CARD } from "./actions";
 
 const initialState = {
     drivers: [],
     driversName: [],
     driversTeam: [],
-    teams: [],
-    originDriver: ""
+    driversOrigin: [],
+    teams: []
 };
 
 const rootReduccer = (state = initialState, action) => {
     switch (action.type) {
         case GET_DRIVERS:
-            return {...state, drivers: action.payload, driversName: action.payload, driversTeam: action.payload};
+            return {...state, drivers: action.payload, driversName: action.payload, driversTeam: action.payload, driversOrigin: action.payload};
 
         case SEARCH_DRIVER_BY_NAME:
             const filteredNames = state.driversName.filter((driver) => 
@@ -40,7 +40,12 @@ const rootReduccer = (state = initialState, action) => {
             return {...state, drivers: filteredTeam};
 
         case FILTER_ORIGIN:
-            return {...state, originDriver: action.payload};
+            const filteredOrigins = state.driversOrigin.filter((driver) => 
+                !action.payload ?  true : action.payload === "database" ? isNaN(driver.id) : Number(driver.id));
+        return {...state, drivers: filteredOrigins};
+
+        case DETAIL_CARD:
+            return {...state, drivers: action.payload};
 
         default:
             return {...state};

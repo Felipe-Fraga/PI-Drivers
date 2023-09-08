@@ -1,25 +1,27 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom';
+import { viewDetail } from '../../redux/actions';
 
 const Detail = () =>{
-    
     const {id} = useParams();
-    const [driver, setDriver] = useState({});
+    const dispatch = useDispatch();
+    const driver = useSelector((state) => state.drivers);
 
     useEffect(() => {
-        axios(`http://localhost:3001/drivers/${id}`).then(({data}) => {
-            if (data.name) setDriver(data);
-            else window.alert('No hay personaje con ese nombre')
-        })
-        return setDriver({});
-    },[id]);
+        dispatch(viewDetail(id))
+    },[dispatch, id]);
 
     return(
         <div>
-            <Link to={`/Home`}> <button>Drivers</button> </Link>
-            <h1>{driver.name && driver.name}</h1>
+            <Link to={'/Home'}><button>Drivers</button></Link>
+            <h1>{driver.name + ' ' + driver.surname}</h1>
+            <h2>{driver.teams}</h2>
+            <img src={driver.image} />
+            <h4>{driver.nationality}</h4>
+            <h4>{driver.dob}</h4>
+            <h6>{driver.description}</h6>
         </div>
     )
 }
