@@ -15,7 +15,7 @@ const Detail = () =>{
 
     return(
         <div>
-            <Link to={'/Home'}><button>Drivers</button></Link>
+            <Link to={'/Home'}> <button>Drivers</button> </Link>
             <h1>{driver.name + ' ' + driver.surname}</h1>
             <h2>{driver.teams}</h2>
             <img src={driver.image} />
