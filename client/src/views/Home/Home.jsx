@@ -4,6 +4,7 @@ import { getDrivers } from "../../redux/actions";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getTeams } from "../../redux/actions";
+import './Home.css'
 
 const Home = () => {
     const dispatch = useDispatch();
@@ -17,7 +18,7 @@ const Home = () => {
     }, [dispatch]);
 
     return (
-        <div>
+        <div className="home">
             <NavBar />
             <CardsContainer />
         </div>

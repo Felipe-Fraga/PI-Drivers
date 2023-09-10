@@ -1,5 +1,6 @@
 import { Create, Detail, Home, Landing } from './views/index';
 import {Route, Routes} from 'react-router-dom'
+import './App.css'
 
 function App() {
 

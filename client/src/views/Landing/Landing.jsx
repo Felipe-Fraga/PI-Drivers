@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 const Landing = () => {
     return(
         <div className="Landing">
-                <Link to={'/Home'}><button className='landingButton'>Comenzar</button></Link>
+                <Link to={'/Home'} className='link'><button className='landingButton'>Comenzar</button></Link>
         </div> 
     )
 }

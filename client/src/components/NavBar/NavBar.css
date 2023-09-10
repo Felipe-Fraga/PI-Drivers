@@ -1,0 +1,16 @@
+.NavBar{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.NavBar > * {
+    margin-right: 10px;
+}
+
+select{
+    color: rgb(193, 16, 16);
+    border-radius: 10px;
+    background-color: black;
+    border: red;
+}

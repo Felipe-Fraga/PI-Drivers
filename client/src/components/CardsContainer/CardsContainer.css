@@ -1,15 +1,23 @@
 .cardsContainer{
-    border: 1px solid black;
+    margin: 0;
+    width: 100%;
+    margin: 20px 70px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 20px;
-    flex-direction: row;
-    border-radius: 15px;
-    flex-wrap: wrap;
 }
 
 .Pagination{
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.Pagination button{
+    width: 100px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    margin: 25px;
+    border: none;
 }

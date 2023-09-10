@@ -3,22 +3,31 @@ import { useSelector } from 'react-redux';
 import { useState } from 'react';
 import './CardsContainer.css'
 import { Pagination } from './Pagination';
+import { Error } from './Error'
 
 const CardsContainer = () => {
     const drivers = useSelector(state => state.drivers);
     const [page, setPage] = useState(1);
     const [xPage, setxPage] = useState(9);
     const maxDrivers = drivers.length / xPage; 
-    
+    const [hasSearchedWithoutResults, setHasSearchedWithoutResults] = useState(false);
+
+
+    const handleSearch = (searchResults) => {
+        const noResults = searchResults.length === 0;
+        setHasSearchedWithoutResults(noResults);
+    };
+
     if (!Array.isArray(drivers)) return null
 
     return (
         <div>
         <div>
-            <Pagination page={page} setPage={setPage} maxDrivers={maxDrivers}/>
+            {drivers.length !== 0 ? <Pagination page={page} setPage={setPage} maxDrivers={maxDrivers}/> : null }
         </div>
         <div className='cardsContainer'>
-            {drivers.slice((page-1)*xPage, (page-1)*xPage+xPage)
+            {drivers.length === 0 ? <Error/> :
+            drivers.slice((page-1)*xPage, (page-1)*xPage+xPage)
             .map(({ id, name, surname, image, dob, teams, Teams }) => {
                 return (
                     <Card

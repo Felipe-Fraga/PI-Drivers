@@ -1,8 +1,3 @@
-*{
-    padding: 0;
-    margin: 0;
-}
-
 
 .Landing {
     background-image: url(../../../imgs/fondoLanding.jpg);
@@ -12,7 +7,8 @@
 }
 
 .landingButton {
-    margin: 5% 38%;
+    margin: 0 38%;
+    top: 10%;
     width: 200px;
     --red: #b10707;
     font-size: 15px;

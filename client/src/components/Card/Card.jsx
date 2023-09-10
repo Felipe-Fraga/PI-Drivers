@@ -3,12 +3,14 @@ import { Link } from 'react-router-dom';
 
 const Card = ({id, name, surname, image, teams, Teams}) => {
     return(
-        <div className='Card'>
+        <div class="card">
             <Link to = {`/Detail/${id}`}>
-                <h1>{name} {surname}</h1>
                 <img src={image} alt={`${name} ${surname}`} />
-                <p>{teams || Teams}</p>       
-            </Link>         
+                <div class="card__content">
+                    <p class="card__title">{name} {surname}</p>
+                    <p class="card__description">{teams || Teams}</p>
+                </div>
+            </Link>
         </div>
     )
 }
