@@ -9,32 +9,50 @@ export const FILTER_BY_TEAM = "FILTER_BY_TEAM";
 export const FILTER_ORIGIN = "FILTER_ORIGIN";
 export const DETAIL_CARD = 'DETAIL_CARD'
 
+//uso dispatch para comunicar resultados asíncronos al store de Redux para actualizarlo
+
 export const getDrivers = () => {
-    return async function (dispatch) {
-        const drivers = (await axios.get(`${URL}/drivers`)).data
-        dispatch({type: GET_DRIVERS, payload: drivers}) //dispatch para comunicar resultados asíncronos al store de Redux para actualizarlo
+    try {
+        return async function (dispatch) {
+            const drivers = (await axios.get(`${URL}/drivers`)).data
+            dispatch({type: GET_DRIVERS, payload: drivers}) 
+        }
+    } catch (error) {
+        console.log(error.message);
     }
 };
 
 export const searchDriverByName = (name) => {
-    return {type: SEARCH_DRIVER_BY_NAME, payload: name};
+    try {
+        return {type: SEARCH_DRIVER_BY_NAME, payload: name};
+    } catch (error) {
+        console.log(error.message);
+    }
 };
 
 export const sortDrivers = (order, direction) => {
-    return {type: SORT_DRIVERS, payload: { order, direction }};
+        return {type: SORT_DRIVERS, payload: { order, direction }};
 };
 
 export const getTeams = () => {
-    return async function (dispatch) {
-        const teams = (await axios.get(`${URL}/teams`)).data
-        dispatch({type: GET_TEAMS, payload: teams})
+    try {
+        return async function (dispatch) {
+            const teams = (await axios.get(`${URL}/teams`)).data
+            dispatch({type: GET_TEAMS, payload: teams})
+        }
+    } catch (error) {
+        console.log(error.message);
     }
 };
 
 export const createDriver = (driverData) => {
-    return async function (dispatch) {
-        const driver = (await axios.post(`${URL}/drivers`, driverData)).data
-        dispatch({type: CREATE_DRIVER, payload: driver});
+    try {
+        return async function (dispatch) {
+            const driver = (await axios.post(`${URL}/drivers`, driverData)).data
+            dispatch({type: CREATE_DRIVER, payload: driver});
+        }
+    } catch (error) {
+        console.log(error.message);
     }
 }
 
@@ -47,8 +65,12 @@ export const filterByOrigin = (source) => {
 };
 
 export const viewDetail = (id) => {
-    return async function (dispatch) {
-        const driver = (await axios.get(`${URL}/drivers/${id}`)).data
-        dispatch({type: GET_DRIVERS, payload: driver})
+    try {
+        return async function (dispatch) {
+            const driver = (await axios.get(`${URL}/drivers/${id}`)).data
+            dispatch({type: GET_DRIVERS, payload: driver})
+        }
+    } catch (error) {
+        console.log(error.message);
     }
 }

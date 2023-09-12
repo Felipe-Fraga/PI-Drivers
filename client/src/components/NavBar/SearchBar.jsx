@@ -14,7 +14,7 @@ const SearchBar = () => {
     
     return(
         <div className='inputbox'>
-            <input onChange={handleChange} value={name} placeholder="Buscar conductor"/>
+            <input onChange={handleChange} value={name} placeholder="Search driver"/>
         </div>
     )
 }

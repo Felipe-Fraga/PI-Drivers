@@ -23,10 +23,10 @@ const Order = () => {
   return (
     <div>
       <select onChange={handleSortChange} value={`${order}:${direction}`}>
-        <option value="name:asc">Nombre (A-Z)</option>
-        <option value="name:desc">Nombre (Z-A)</option>
-        <option value="birthdate:asc">Edades Ascendentes</option>
-        <option value="birthdate:desc">Edades Descendentes</option>
+        <option value="name:asc">Name (A-Z)</option>
+        <option value="name:desc">Name (Z-A)</option>
+        <option value="birthdate:asc">Age ( - to + )</option>
+        <option value="birthdate:desc">Age ( + to - )</option>
       </select>
     </div>
   );

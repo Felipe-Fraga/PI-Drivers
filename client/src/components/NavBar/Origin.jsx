@@ -14,8 +14,8 @@ const Origin = () => {
     return (
         <div>
             <select onChange={handleSourceChange}>
-                <option value="">Todos</option>
-                <option value="database">Base de Datos</option>
+                <option value="">All origins</option>
+                <option value="database">DataBase</option>
                 <option value="api">API</option>
             </select>
         </div>

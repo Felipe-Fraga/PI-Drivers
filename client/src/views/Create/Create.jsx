@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { handleSubmit } from './Utils';
 import { Link } from 'react-router-dom'
@@ -7,8 +7,10 @@ import './Create.css'
 const Create = () => {
     const dispatch = useDispatch();
     const teams = useSelector((state) => state.teams);
+    const drivers = useSelector((state) => state.drivers)
 
-    const [selectTeams, setSelectedTeams] = useState([])
+
+    const [selectTeams, setSelectedTeams] = useState([]);
     const [driverData, setDriverData] = useState({
         name: '',
         surname: '',
@@ -18,7 +20,6 @@ const Create = () => {
         description: '',
         teams: []
     });
-
     const [errors, setErrors] = useState({
         name: '',
         surname: '',
@@ -44,7 +45,7 @@ const Create = () => {
                 <button>Home</button>
             </Link>
 
-            <form className="form" onSubmit={(event) => handleSubmit(event, driverData, setErrors, dispatch, setDriverData)}>
+            <form className="form" onSubmit={(event) => handleSubmit(event, driverData, setErrors, dispatch, setDriverData, drivers)}>
                 <p className="title">Crear nuevo corredor</p>
                 <p className="message">En caso de no cargar imagen, se cargará una por defecto</p>
                 <div className="flex">

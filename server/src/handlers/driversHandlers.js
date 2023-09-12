@@ -31,9 +31,9 @@ const getDriverByIdHandler = async (req, res) => {
 const createDriverHandler = async (req, res) => {
     try {
         const { name, surname, description, image, nationality, dob, teams } = req.body;
-        res.status(201).json(await createDriver( name, surname, description, image, nationality, dob, teams));
+        res.status(201).json(await createDriver(name, surname, description, image, nationality, dob, teams));
     } catch (error) {
-        res.status(400).json({ error: error.message });
+        res.status(400).json({error: error.message});
     }
 };
 

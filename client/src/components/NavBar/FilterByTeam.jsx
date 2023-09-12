@@ -15,7 +15,7 @@ const FilterByTeam = () => {
     return (
         <div>
             <select onChange={handleTeamChange}>
-                <option value="">Todos los equipos</option>
+                <option value="">All teams</option>
                 {teams.map((team) => (
                     <option key={team.id}> {team.nombre} </option>)
                 )}

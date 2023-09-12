@@ -18,7 +18,7 @@ const formatAPI = (api) =>
 
 const formatDB = (bd) => 
     bd.map(driver => ({
-        ...driver.dataValues,                                             //prop de Seq - trae los valores
+        ...driver.dataValues,                                                       //prop de Seq - trae los valores
         teams: driver.Teams.map(team => team.nombre).join(', ')
 }));
 
@@ -71,10 +71,7 @@ const createDriver = async (name, surname, description, image, nationality, dob,
         teamsAsociados = await Teams.findAll({ where: { nombre: teams } });
         await newDriver.setTeams(teamsAsociados);
     }
-    return {
-        ...newDriver.dataValues,
-        teams: teamsAsociados.map(team => team.nombre)
-    }
+    return {...newDriver.dataValues, teams: teamsAsociados.map(team => team.nombre)}
 };
 
 

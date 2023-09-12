@@ -1,4 +1,4 @@
-import { Create, Detail, Home, Landing } from './views/index';
+import { Create, Detail, Home, Landing, Error } from './views/index';
 import {Route, Routes} from 'react-router-dom'
 import './App.css'
 
@@ -11,6 +11,7 @@ function App() {
         <Route path="/home" element={<Home/>}/> 
         <Route path="/detail/:id" element={<Detail/>}/> 
         <Route path="/create" element={<Create/>}/> 
+        <Route path='*' element={<Error />} />
       </Routes>
     </>
   )
