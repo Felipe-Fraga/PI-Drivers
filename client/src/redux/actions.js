@@ -8,6 +8,7 @@ export const CREATE_DRIVER = 'CREATE_DRIVER';
 export const FILTER_BY_TEAM = "FILTER_BY_TEAM";
 export const FILTER_ORIGIN = "FILTER_ORIGIN";
 export const DETAIL_CARD = 'DETAIL_CARD'
+export const DRIVER_NOT_FOUND_ERROR = 'DRIVER_NOT_FOUND_ERROR'
 
 //uso dispatch para comunicar resultados asíncronos al store de Redux para actualizarlo
 
@@ -23,12 +24,21 @@ export const getDrivers = () => {
 };
 
 export const searchDriverByName = (name) => {
-    try {
-        return {type: SEARCH_DRIVER_BY_NAME, payload: name};
-    } catch (error) {
-        console.log(error.message);
+    return async function (dispatch) {
+        try {
+            const drivers = (await axios.get(`${URL}/drivers?name=${name}`)).data;
+            console.log(name);
+            if (drivers.error) {
+                console.log(drivers.error);
+            } else {
+                dispatch({ type: SEARCH_DRIVER_BY_NAME, payload: drivers });
+            }
+        } catch (error) {
+            dispatch({ type: DRIVER_NOT_FOUND_ERROR });        
+        }
     }
 };
+
 
 export const sortDrivers = (order, direction) => {
         return {type: SORT_DRIVERS, payload: { order, direction }};

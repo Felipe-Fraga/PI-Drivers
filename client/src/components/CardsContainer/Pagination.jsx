@@ -27,11 +27,11 @@ export const Pagination = ({page, setPage, maxDrivers}) => {
 
     return(
         <div className='Pagination'>
-            <button onClick={first}>First</button>
-            <button onClick={prev}>Prev</button>
+            {page > 1 && <button onClick={first}>First</button>}
+            {page > 2 && <button onClick={prev}>Prev</button>}
             <span>{page} / {Math.ceil(maxDrivers)}</span>
-            <button onClick={next}>Next</button>
-            <button onClick={last}>Last</button>
+            {page < maxDrivers && <button onClick={next}>Next</button>}
+            {page < maxDrivers - 1 && <button onClick={last}>Last</button>}
         </div>
     )
 }

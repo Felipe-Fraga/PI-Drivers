@@ -1,4 +1,4 @@
-import { GET_DRIVERS, SEARCH_DRIVER_BY_NAME, SORT_DRIVERS, GET_TEAMS, CREATE_DRIVER, FILTER_BY_TEAM, FILTER_ORIGIN, DETAIL_CARD } from "./actions";
+import { GET_DRIVERS, SEARCH_DRIVER_BY_NAME, SORT_DRIVERS, GET_TEAMS, CREATE_DRIVER, FILTER_BY_TEAM, FILTER_ORIGIN, DETAIL_CARD, DRIVER_NOT_FOUND_ERROR } from "./actions";
 
 const initialState = {
     drivers: [],
@@ -9,6 +9,7 @@ const initialState = {
     currentOrigin: "",
     currentTeam: null,
     teams: [],
+    error: ''
 };
 
     const sortDrivers = (drivers, order, direction) =>
@@ -39,9 +40,11 @@ const rootReduccer = (state = initialState, action) => {
             return {...state, drivers: action.payload, allDrivers: action.payload };
 
         case SEARCH_DRIVER_BY_NAME:
-            const filteredNames = state.allDrivers.filter((driver) => 
-                `${driver.name} ${driver.surname}`.toLowerCase().includes(action.payload.toLowerCase()));
-            return {...state, drivers: filteredNames};
+            return {...state, drivers: action.payload};
+
+        case DRIVER_NOT_FOUND_ERROR:
+            return { ...state, drivers:[], error: 'No se encontraron conductores con ese nombre' };
+
 
         case SORT_DRIVERS:
             const { order, direction } = action.payload;

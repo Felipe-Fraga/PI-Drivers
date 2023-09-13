@@ -41,7 +41,7 @@ const getAllDrivers = async () => {
 
 const getDriversByName = async (name) => {
     const allDrivers = await getAllDrivers() 
-    const allWithName = allDrivers.filter((driver) => driver.name.toLowerCase().includes(name.toLowerCase()))
+    const allWithName = allDrivers.filter((driver) => `${driver.name} ${driver.surname}`.toLowerCase().includes(name.toLowerCase()))
     return [...allWithName].slice(0,15)
 };
 

@@ -30,7 +30,7 @@ export function handleSubmit(event, driverData, setErrors, dispatch, setDriverDa
             name: '',
             surname: '',
             nationality: '',
-            image: null,
+            image: '',
             dob: '',
             description: '',
             teams: driverData.teams,
