@@ -15,7 +15,7 @@ const Create = () => {
         name: '',
         surname: '',
         nationality: '',
-        image: null,
+        image: '',
         dob: '',
         description: '',
         teams: []

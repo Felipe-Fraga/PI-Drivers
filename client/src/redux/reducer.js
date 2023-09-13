@@ -23,8 +23,8 @@ const initialState = {
         const selectedOrigin = filterType === "origin" ? filterValue : state.currentOrigin;
 
             const filteredDrivers = state.allDrivers.filter((driver) => {
-            const teamCondition = !selectedTeam || (driver.teams && driver.teams.includes(selectedTeam));
-            const originCondition = selectedOrigin === "database" ? isNaN(driver.id) : selectedOrigin === "api" ? !isNaN(driver.id) : true;
+                const teamCondition = !selectedTeam || (driver.teams && driver.teams.includes(selectedTeam));
+                const originCondition = selectedOrigin === "database" ? isNaN(driver.id) : selectedOrigin === "api" ? Number(driver.id) : true;
             return teamCondition && originCondition;
             });
 
@@ -43,8 +43,7 @@ const rootReduccer = (state = initialState, action) => {
             return {...state, drivers: action.payload};
 
         case DRIVER_NOT_FOUND_ERROR:
-            return { ...state, drivers:[], error: 'No se encontraron conductores con ese nombre' };
-
+            return { ...state, drivers:[], error: action.payload };
 
         case SORT_DRIVERS:
             const { order, direction } = action.payload;

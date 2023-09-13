@@ -9,7 +9,7 @@ export function handleSubmit(event, driverData, setErrors, dispatch, setDriverDa
         surname: (driverData.surname === '' || !/^[A-Za-zÁÉÍÓÚáéíóúüÜ\s]+$/.test(driverData.surname)) ? 'Apellido invalido.' : undefined,
         nationality: (driverData.nationality === '' || !/^[A-Za-zÁÉÍÓÚáéíóúüÜ\s]+$/.test(driverData.nationality)) ? 'Nacionalidad invalida.' : undefined,
         dob: driverData.dob === '' ? 'La fecha de nacimiento del conductor es obligatoria.' : undefined,
-        description: driverData.description === '' ? 'La descripción del conductor es obligatoria.' : undefined,
+        description: (driverData.description === '' || driverData.description.length < 20) ? 'La descripción del conductor es obligatoria y debe tener mas de 20 caracteres.' : undefined,
         teams: driverData.teams.length === 0 ? 'Selecciona al menos una escudería.' : undefined,
     };
 
@@ -33,7 +33,7 @@ export function handleSubmit(event, driverData, setErrors, dispatch, setDriverDa
             image: '',
             dob: '',
             description: '',
-            teams: driverData.teams,
+            teams: 'driverData.teams',
         });
         window.alert('Driver creado con éxito');
     }

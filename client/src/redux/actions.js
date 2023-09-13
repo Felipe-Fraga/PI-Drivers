@@ -27,14 +27,9 @@ export const searchDriverByName = (name) => {
     return async function (dispatch) {
         try {
             const drivers = (await axios.get(`${URL}/drivers?name=${name}`)).data;
-            console.log(name);
-            if (drivers.error) {
-                console.log(drivers.error);
-            } else {
-                dispatch({ type: SEARCH_DRIVER_BY_NAME, payload: drivers });
-            }
+            dispatch({ type: SEARCH_DRIVER_BY_NAME, payload: drivers });
         } catch (error) {
-            dispatch({ type: DRIVER_NOT_FOUND_ERROR });        
+            dispatch({ type: DRIVER_NOT_FOUND_ERROR, payload: error.response.data.message });        
         }
     }
 };
@@ -75,12 +70,12 @@ export const filterByOrigin = (source) => {
 };
 
 export const viewDetail = (id) => {
-    try {
-        return async function (dispatch) {
+    return async function (dispatch) {
+        try {
             const driver = (await axios.get(`${URL}/drivers/${id}`)).data
             dispatch({type: GET_DRIVERS, payload: driver})
+        } catch (error) {
+            window.alert(error.response.data.message)        
         }
-    } catch (error) {
-        console.log(error.message);
     }
 }
