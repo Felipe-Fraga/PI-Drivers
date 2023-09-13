@@ -10,8 +10,8 @@ export const Error = () => {
     return (
         <div class="error">
             <div class="error-content">
-                <p class="error-para">Todavía no hay corredor con esas características</p>
-            <button onClick={mostrarTodos} >Traer Todos</button>
+                <p class="error-para">Todavía no hay corredor</p>
+            <button onClick={mostrarTodos} >Show all</button>
             </div>
         </div>
     )

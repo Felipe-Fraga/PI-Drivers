@@ -5,10 +5,13 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getTeams } from "../../redux/actions";
 import './Home.css'
+import { useState } from "react";
 
 const Home = () => {
     const dispatch = useDispatch();
-
+    const [page, setPage] = useState(1);
+    const handleFilterChange = () => setPage(1);
+    
     useEffect(() => {
         dispatch(getDrivers());
     }, [dispatch]);
@@ -19,8 +22,8 @@ const Home = () => {
 
     return (
         <div className="home">
-            <NavBar />
-            <CardsContainer />
+            <NavBar onFilterChange={handleFilterChange}/>
+            <CardsContainer page={page} setPage={setPage}/>
         </div>
     );
 }

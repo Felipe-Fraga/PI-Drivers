@@ -2,13 +2,14 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { filterByOrigin } from "../../redux/actions";
 
-const Origin = () => {
+const Origin = ({onFilterChange}) => {
     const dispatch = useDispatch();
     const [origin, setOrigin] = useState("");
 
     const handleSourceChange = (e) => {
         setOrigin(e.target.value);
-        dispatch(filterByOrigin(e.target.value)); 
+        dispatch(filterByOrigin(e.target.value));
+        onFilterChange(); 
     };
 
     return (

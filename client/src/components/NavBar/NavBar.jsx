@@ -5,14 +5,14 @@ import FilterByTeam from "./FilterByTeam";
 import { Link } from "react-router-dom";
 import './NavBar.css'
 
-const NavBar = () => {
+const NavBar = ({onFilterChange}) => {
     return (
         <div className="NavBar">
             <Link to ={'/Create'} className="link"><button className='create'>Create</button> </Link>
-            <SearchBar />
-            <Order />
-            <Origin />
-            <FilterByTeam />
+            <SearchBar  onFilterChange={onFilterChange}/>
+            <Order onFilterChange={onFilterChange}/>
+            <Origin onFilterChange={onFilterChange}/>
+            <FilterByTeam onFilterChange={onFilterChange} />
         </div>
     );
 };

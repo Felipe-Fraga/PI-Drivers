@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { filterByTeam } from "../../redux/actions";
 
-const FilterByTeam = () => {
+const FilterByTeam = ({onFilterChange}) => {
     const dispatch = useDispatch();
     const [team, setTeam] = useState(""); 
     const teams = useSelector((state) => state.teams); 
@@ -10,6 +10,7 @@ const FilterByTeam = () => {
     const handleTeamChange = (e) => {
         setTeam(e.target.value); 
         dispatch(filterByTeam(e.target.value));
+        onFilterChange();
     };
 
     return (

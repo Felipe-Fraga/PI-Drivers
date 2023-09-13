@@ -4,12 +4,15 @@ import { useState } from 'react';
 import './CardsContainer.css'
 import { Pagination } from './Pagination';
 import { Error } from './Error'
+import { useEffect } from 'react';
 
-const CardsContainer = () => {
+const CardsContainer = ({ page, setPage }) => {
     const drivers = useSelector(state => state.drivers);
-    const [page, setPage] = useState(1);
     const [xPage, setxPage] = useState(9);
     const maxDrivers = drivers.length / xPage; 
+
+    useEffect(() => {
+    }, [page]);
 
     if (!Array.isArray(drivers)) return null
 

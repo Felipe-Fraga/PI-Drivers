@@ -18,11 +18,20 @@ export const Pagination = ({page, setPage, maxDrivers}) => {
         }
     }
 
+    const first = () =>  setPage(1);
+    
+
+    const last = () => 
+        setPage(Math.ceil(maxDrivers));
+    
+
     return(
         <div className='Pagination'>
+            <button onClick={first}>First</button>
             <button onClick={prev}>Prev</button>
             <span>{page} / {Math.ceil(maxDrivers)}</span>
             <button onClick={next}>Next</button>
+            <button onClick={last}>Last</button>
         </div>
     )
 }

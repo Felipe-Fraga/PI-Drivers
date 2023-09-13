@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { sortDrivers } from "../../redux/actions";
 
-const Order = () => {
+const Order = ({onFilterChange}) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -18,6 +18,7 @@ const Order = () => {
     setOrder(newOrder);
     setDirection(newDirection);
     dispatch(sortDrivers(newOrder, newDirection));
+    onFilterChange(); 
   };
 
   return (
@@ -25,8 +26,8 @@ const Order = () => {
       <select onChange={handleSortChange} value={`${order}:${direction}`}>
         <option value="name:asc">Name (A-Z)</option>
         <option value="name:desc">Name (Z-A)</option>
-        <option value="birthdate:asc">Age ( - to + )</option>
-        <option value="birthdate:desc">Age ( + to - )</option>
+        <option value="dob:asc">Age ( - to + )</option>
+        <option value="dob:desc">Age ( + to - )</option>
       </select>
     </div>
   );
